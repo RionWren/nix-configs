@@ -89,7 +89,7 @@
 
   console.useXkbConfig = true;
 
-  networking.hostName = "Millwright";
+  networking.hostName = "Absolution";
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 80 443 5900 ];
 
@@ -136,12 +136,13 @@
     enable = true;
     pkiBundle = "/etc/secureboot";
   };
+
   boot.initrd.systemd.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.luks.devices = {
     crypted = {
-      device = "/dev/disk/by-partuuid/f1afe0b2-9f0b-4f4d-8eab-9c1bea57c705";
-      header = "/dev/disk/by-partuuid/08f5286a-64f5-49b3-bde7-ec6180ee9f84";
+      device = "/dev/disk/by-partuuid/305d296d-74d4-4900-8450-da74668c898d";
+      header = "/dev/disk/by-partuuid/5bfd9605-94ae-4813-9cd4-86b4974d47ab";
       allowDiscards = true;
       preLVM = true;
     };

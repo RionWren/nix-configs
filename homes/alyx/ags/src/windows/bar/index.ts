@@ -58,7 +58,7 @@ const Bar = ({ monitor: number } = {}) =>
         anchor: ["top", "bottom", "right"],
         exclusivity: "exclusive",
         layer: "top",
-        monitor: 0,
+	monitor: 0,
         margins: [8, 8, 8, 0],
         child: CenterBox({
             className: "bar",

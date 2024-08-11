@@ -34,11 +34,11 @@ in {
      ];
   };
 
-  "Millwright" = mkSystem {
+  "Absolution" = mkSystem {
     specialArgs = commonArgs;
     modules = [
       # this list defines which files will be imported to be used as "modules" in the system config
-      ./Millwright/configuration.nix
+      ./Absolution/configuration.nix
       # use the nixos-module for home-manager
       home-manager
       homes

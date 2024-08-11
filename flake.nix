@@ -60,11 +60,6 @@
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     
     hyprlock.url = "github:hyprwm/hyprlock";
-
-    hyprgrass = {
-      url = "github:horriblename/hyprgrass";
-      inputs.hyprland.follows = "hyprland";
-    };
   
     hyprpicker.url = "github:hyprwm/hyprpicker";
 
