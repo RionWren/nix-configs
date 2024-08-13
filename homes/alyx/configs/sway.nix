@@ -28,7 +28,17 @@
   ];
   workspaceLayout = "default";
   keybindings = lib.mkOptionDefault {
+    "Mod4+Shift+f" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
+    "Mod4+Shift+n" = "move down";
+    "Mod4+Shift+e" = "move up";
+    "Mod4+Shift+i" = "move right";
     "Mod4+s" = "exec foot --title launch --app-id fzf-launcher bash -c 'compgen -c | sort -u | fzf | xargs swaymsg exec --'";
+    "Mod4+f" = "layout toggle split";
+    "Mod4+t" = "fullscreen toggle";
+    "Mod4+n" = "focus down";
+    "Mod4+e" = "focus up";
+    "Mod4+i" = "focus right";
+    "Mod4+p" = "mode resize";
     "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
     "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
     "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
