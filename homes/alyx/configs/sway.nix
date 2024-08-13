@@ -23,9 +23,27 @@
   defaultWorkspace = "workspace number 1";
   startup = [
     { command = "udiskie"; }
-    { command = "swaybg -m fit -i ~/.config/nixos/images/halftone-purple.png"; }
+    { command = "swaybg -m fill -i ~/.config/nixos/images/halftone-purple.png"; }
     { command = "swaync"; }
   ];
+
+  seat = {
+    "*" = {
+      xcursor_theme = "catppuccin-mocha-mauve-cursors 48";
+    };
+  };
+
+  output = {
+    DP-1 = {
+      mode = "2560x1080";
+      pos = "1920 0";
+    };
+    DP-2 = {
+      mode = "1920x1080@239.760Hz";
+      pos = " 0 0";
+    };
+  };
+
   workspaceLayout = "default";
   keybindings = lib.mkOptionDefault {
     "Mod4+Shift+f" = "exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'";
@@ -53,6 +71,7 @@
     "XF86Launch1" = "exec nmcli device wifi rescan";
     "Shift_L+Control_L+B" = "exec playerctl position 10-";
     "Shift_L+Control_L+F" = "exec playerctl position 10+";
+    "Mod4+Shift+s" = "exec grimblast copy area";
   };
   floating.criteria = [
     { app_id = "^fzf-launcher$";}

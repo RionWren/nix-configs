@@ -10,7 +10,6 @@
     ./programs.nix # programs.<programName>.enable
     ./configs/git.nix
     ./configs/nvim-flake.nix
-    ./ags
   ];
 
   home = {
@@ -65,6 +64,12 @@
     config = import ./configs/sway.nix;
     extraConfig = import ./configs/swayfx;
     extraOptions = [ "--unsupported-gpu" ];
+  };
+
+  programs.waybar = {
+    enable = true;
+    settings = import ./configs/waybar.nix;
+    style = import ./configs/waybar-style.nix;
   };
 
   services.udiskie.enable = true;
