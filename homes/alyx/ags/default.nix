@@ -8,7 +8,7 @@
 }: let
   inherit (builtins) elem path;
   inherit (lib.modules) mkIf;
-  inherit (import ./bin {inherit pkgs lib;}) ags-open-window ags-move-window ags-hyprctl-swallow;
+  inherit (import ./bin {inherit pkgs lib;}) ags-open-window ags-move-window;
 
   agsPkg = inputs.ags.packages.${pkgs.stdenv.system}.ags;
 
@@ -20,8 +20,6 @@ in {
       # some of those dependencies are used internally for setting variables
       # or basic functionality where built-in services do not suffice
       coreDeps = with pkgs; [
-        inputs.hyprpicker.packages.${pkgs.stdenv.system}.default
-        inputs.hyprland.packages.${pkgs.stdenv.system}.default
         config.programs.foot.package
 
         # basic functionality
@@ -44,7 +42,6 @@ in {
         # runtime scripts
         ags-open-window
         ags-move-window
-        ags-hyprctl-swallow
       ];
 
       # applications that are not necessarily required to compile ags
@@ -160,7 +157,6 @@ in {
         ReadWritePaths = [
           # Socket and runtime directory access
           # %t refers to $XDG_RUNTIME_DIR
-          "%t/hypr"
           "%t/dconf/user"
           "%t/pulse"
           "%t/ags"

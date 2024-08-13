@@ -2,12 +2,11 @@ import { Widget } from "../../imports";
 const { Window, Box, CenterBox } = Widget;
 
 // Widgets
-import { Workspaces } from "./modules/workspaces";
+// import { Workspaces } from "./modules/workspaces";
 import { Tray } from "./modules/tray";
 import { BatteryWidget } from "./modules/battery";
 import { Clock } from "./modules/clock";
 import { PowerMenu } from "./modules/power";
-import { Swallow } from "./modules/swallow";
 import { BluetoothWidget } from "./modules/bluetooth";
 import { AudioWidget } from "./modules/audio";
 import { NetworkWidget } from "./modules/network";
@@ -26,7 +25,7 @@ const Center = () =>
     Box({
         className: "barCenter",
         vertical: true,
-        children: [Workspaces()],
+        children: [],
     });
 
 const Bottom = () =>

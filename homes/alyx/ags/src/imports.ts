@@ -19,7 +19,6 @@ export const Widget = await require("widget");
 // Services
 export const Battery = await fromService("battery");
 export const Bluetooth = await fromService("bluetooth");
-export const Hyprland = await fromService("hyprland");
 export const Mpris = await fromService("mpris");
 export const Network = await fromService("network");
 export const Applications = await fromService("applications");

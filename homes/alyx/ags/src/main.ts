@@ -1,11 +1,11 @@
 import { App, Notifications } from "./imports";
 
 // Windows
-import AppLauncher from "./windows/launcher/index";
+// import AppLauncher from "./windows/launcher/index";
 import Bar from "./windows/bar/index";
 import Desktop from "./windows/desktop/index";
 import Popups from "./windows/popups/index";
-import Notifs from "./windows/notifications/index";
+// import Notifs from "./windows/notifications/index";
 import Media from "./windows/music/index";
 
 App.connect("config-parsed", () => console.log("Config parsed!"));
