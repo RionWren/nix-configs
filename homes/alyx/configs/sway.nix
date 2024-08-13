@@ -14,18 +14,21 @@
     "type:mouse" = {
       accel_profile = "flat";
     };
+    "1:1:AT_Translated_Set_2_keyboard" = {
+      xkb_layout = "us";
+      xkb_variant = "colemak";
+    };
   };
   bars = [];
   defaultWorkspace = "workspace number 1";
   startup = [
-    { command = "waybar"; }
     { command = "udiskie"; }
     { command = "swaybg -m fit -i ~/.config/nixos/images/halftone-purple.png"; }
     { command = "swaync"; }
   ];
   workspaceLayout = "default";
   keybindings = lib.mkOptionDefault {
-    "Mod4+d" = "exec foot --title launch --app-id fzf-launcher bash -c 'compgen -c | sort -u | fzf | xargs swaymsg exec --'";
+    "Mod4+s" = "exec foot --title launch --app-id fzf-launcher bash -c 'compgen -c | sort -u | fzf | xargs swaymsg exec --'";
     "XF86AudioRaiseVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ -l 1.0";
     "XF86AudioLowerVolume" = "exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
     "XF86AudioMute" = "exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";

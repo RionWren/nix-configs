@@ -17,16 +17,41 @@
     vulkan-validation-layers
     vaapiVdpau
     libvdpau-va-gl
+    intel-media-driver
+    vaapiIntel
+    nvidia-vaapi-driver
   ];
 
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = true;
+    open = false;
+    nvidiaSettings = true;
+    nvidiaPersistenced = true;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    prime = {
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+    };
+  };
+
   services.xserver = {
+    videoDrivers = [ "nvidia" "i915" ];
     xkb.variant = lib.mkForce "colemak";
-    xkb.layout = lib.mkForce "gb";
+    xkb.layout = lib.mkForce "us";
   };
 
   nixpkgs = {
     # Configure your nixpkgs instance
     config = {
+      packageOverrides = pkgs: {
+        vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+      };
       # Disable if you don't want unfree packages
       allowUnfree = true;
     };
@@ -73,35 +98,6 @@
   powerManagement.powertop.enable = true;
   services.thermald.enable = true;
 
-  services.tlp = {
-    enable = true;
-    settings = {
-
-
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-      PLATFORM_PROFILE_ON_BAT = "low-power";
-      PLATFORM_PROFILE_ON_AC = "performance";
-
-      CPU_BOOST_ON_AC = 1;
-      CPU_BOOST_ON_BAT = 0;
-
-      CPU_HWP_DYN_BOOST_ON_AC = 1;
-      CPU_HWP_DYN_BOOST_ON_BAT = 0;
-
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_performance";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-      RUNTIME_PM_DRIVER_DENYLIST = "mei_me";
-
-      CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 40;
-    };
-  };
-
   networking.hostName = "Nomad";
 
   virtualisation.spiceUSBRedirection.enable = true;
@@ -123,9 +119,18 @@
   };
   boot.bootspec.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices."luks-6240becf-04f7-4086-989c-95f51b0a5120".device = "/dev/disk/by-uuid/6240becf-04f7-4086-989c-95f51b0a5120";
   boot.initrd.systemd.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.extraModprobeConfig = "options nvidia_drm fbdev=1";
+
+  boot.initrd.luks.devices = {
+    crypted = {
+      device = "/dev/disk/by-partuuid/93b4aa33-98ae-4b04-9f2c-34a10793e303";
+      allowDiscards = true;
+      preLVM = true;
+    };
+  };
 
   # Set a time zone, idiot
   time.timeZone = "Europe/London";
