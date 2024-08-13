@@ -42,8 +42,7 @@
 
   services.xserver = {
     videoDrivers = [ "nvidia" "i915" ];
-    xkb.variant = lib.mkForce "colemak";
-    xkb.layout = lib.mkForce "us";
+    xkb.variant = "colemak";
   };
 
   nixpkgs = {
