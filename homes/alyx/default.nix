@@ -4,18 +4,7 @@
   inputs,
   osConfig,
   ...
-}:
-
-let
-  hyprConfig = lib.mkMerge [
-    (lib.mkIf (osConfig.networking.hostName == "Absolution") (import ./configs/Absolution.nix))
-    (lib.mkIf (osConfig.networking.hostName == "Nomad") (import ./configs/Nomad.nix))
-    (lib.mkIf (osConfig.networking.hostName == "Jupiter") (import ./configs/Jupiter.nix))
-    (lib.mkIf (osConfig.networking.hostName == "Hyperion") (import ./configs/Hyperion.nix))
-  ];
-in
-
- {
+}:{
   imports = [
     ./packages.nix # home.packages and similar stuff
     ./programs.nix # programs.<programName>.enable
@@ -69,11 +58,13 @@ in
     };
   };
 
-  wayland.windowManager.hyprland = {
+  wayland.windowManager.sway = {
+    package = pkgs.swayfx;
     enable = true;
-    systemd.enable = true;
-    xwayland.enable = true;
-    settings = hyprConfig;
+    checkConfig = false;
+    config = import ./configs/sway.nix;
+    extraConfig = import ./configs/swayfx;
+    extraOptions = [ "--unsupported-gpu" ];
   };
 
   services.udiskie.enable = true;

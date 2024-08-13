@@ -44,6 +44,7 @@
     bluez
     cinnamon.nemo
     dbus
+    fzf
     grimblast
     libsForQt5.qt5ct
     lxqt.lxqt-policykit
@@ -66,6 +67,7 @@
 
   xdg.portal = {
     enable = true;
+    wlr.enable = true;
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
     config.common.default = "*";
   };
@@ -117,7 +119,7 @@
     restart = true;
     settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd Hyprland";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
         user = "greeter";
       };
     };
@@ -132,9 +134,6 @@
     TTYHangup = "true";
     TTYVTDisallocate = true;
   };
-
-  security.pam.services.gtklock.text = lib.readFile "${pkgs.gtklock}/etc/pam.d/gtklock";
-
 
   networking.networkmanager.enable = true;
 

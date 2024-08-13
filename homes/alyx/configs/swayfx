@@ -1,0 +1,9 @@
+"
+blur enable
+corner_radius 10
+# shadows enable - not using this because of flicker
+default_dim_inactive 0.3
+client.focused 000000 cba6f7 000000 cba6f7
+client.focused_inactive 000000 440C88 000000 440C88
+client.unfocused 000000 440C88 000000 440C88
+"
