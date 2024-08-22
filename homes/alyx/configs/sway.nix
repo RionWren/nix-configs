@@ -15,16 +15,20 @@
       accel_profile = "flat";
     };
     "1:1:AT_Translated_Set_2_keyboard" = {
-      xkb_layout = "us";
+      xkb_layout = "gb";
       xkb_variant = "colemak";
+    };
+    "2:14:ETPS/2_Elantech_TrackPoint" = {
+      pointer_accel = "-0.7";
     };
   };
   bars = [];
   defaultWorkspace = "workspace number 1";
   startup = [
-    { command = "udiskie"; }
+    { command = "waybar"; }
     { command = "swaybg -m fill -i ~/.config/nixos/images/halftone-purple.png"; }
     { command = "swaync"; }
+    { command = "bash ~/.config/lockonsleep/config.sh"; }
   ];
 
   seat = {

@@ -13,14 +13,23 @@
     ../common.nix
   ];
   
+  hardware.graphics.extraPackages = with pkgs; [
+    vulkan-validation-layers
+    vaapiVdpau
+    libvdpau-va-gl
+    intel-media-driver
+    vaapiIntel
+    nvidia-vaapi-driver
+  ];
+
   hardware.nvidia = {
+    modesetting.enable = true;
     powerManagement.enable = true;
     powerManagement.finegrained = true;
     open = false;
     nvidiaSettings = true;
-    modesetting.enable = true;
     nvidiaPersistenced = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
     prime = {
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
@@ -31,19 +40,12 @@
     };
   };
 
-  hardware.graphics.extraPackages = with pkgs; [
-    vulkan-validation-layers
-    intel-media-driver
-    vaapiIntel
-    vaapiVdpau
-    libvdpau-va-gl
-    nvidia-vaapi-driver
-  ];
-
   services.xserver = {
+    videoDrivers = [ "nvidia" "i915" ];
     xkb.variant = "colemak";
-    videoDrivers = [ "nvidia" ];
   };
+
+  services.greetd.settings.default_session.command = lib.mkForce "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd 'sway --unsupported-gpu'" ;
 
   nixpkgs = {
     # Configure your nixpkgs instance
@@ -53,7 +55,6 @@
       };
       # Disable if you don't want unfree packages
       allowUnfree = true;
-      nvidia.acceptLicense = true;
     };
   };
 
@@ -78,6 +79,7 @@
   programs = {
     adb.enable = true;
     dconf.enable = true;
+    wayfire.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
@@ -93,39 +95,12 @@
     vulkan-validation-layers
   ];
 
+  services.fprintd.enable = true;
+
   powerManagement.powertop.enable = true;
   services.thermald.enable = true;
 
-  services.tlp = {
-    enable = true;
-    settings = {
-
-
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-
-      PLATFORM_PROFILE_ON_BAT = "low-power";
-      PLATFORM_PROFILE_ON_AC = "performance";
-
-      CPU_BOOST_ON_AC = 1;
-      CPU_BOOST_ON_BAT = 0;
-
-      CPU_HWP_DYN_BOOST_ON_AC = 1;
-      CPU_HWP_DYN_BOOST_ON_BAT = 0;
-
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "balance_performance";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-
-      RUNTIME_PM_DRIVER_DENYLIST = "mei_me";
-
-      CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 40;
-    };
-  };
-
-  networking.hostName = "Hyperion";
+  networking.hostName = "Nomad";
 
   virtualisation.spiceUSBRedirection.enable = true;
 
@@ -139,10 +114,25 @@
     qemu.runAsRoot = true;
   };
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.enable = lib.mkForce false;
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
+  };
+  boot.bootspec.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.systemd.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.extraModprobeConfig = "options nvidia_drm fbdev=1";
+
+  boot.initrd.luks.devices = {
+    crypted = {
+      device = "/dev/disk/by-partuuid/93b4aa33-98ae-4b04-9f2c-34a10793e303";
+      allowDiscards = true;
+      preLVM = true;
+    };
+  };
 
   # Set a time zone, idiot
   time.timeZone = "Europe/London";

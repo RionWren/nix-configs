@@ -17,40 +17,15 @@
     vulkan-validation-layers
     vaapiVdpau
     libvdpau-va-gl
-    intel-media-driver
-    vaapiIntel
-    nvidia-vaapi-driver
   ];
 
-  hardware.nvidia = {
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    powerManagement.finegrained = true;
-    open = false;
-    nvidiaSettings = true;
-    nvidiaPersistenced = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
-    prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-    };
-  };
-
   services.xserver = {
-    videoDrivers = [ "nvidia" "i915" ];
     xkb.variant = "colemak";
   };
 
   nixpkgs = {
     # Configure your nixpkgs instance
     config = {
-      packageOverrides = pkgs: {
-        vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
-      };
       # Disable if you don't want unfree packages
       allowUnfree = true;
     };
@@ -120,8 +95,6 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.systemd.enable = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "nvidia" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
-  boot.extraModprobeConfig = "options nvidia_drm fbdev=1";
 
   boot.initrd.luks.devices = {
     crypted = {
