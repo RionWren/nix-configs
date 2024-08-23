@@ -7,14 +7,12 @@
     amberol
     blender-hip
     brightnessctl
-    cinny-desktop
     clonehero
     distrobox
     easyeffects
     element-desktop
     fastfetch
     firefox-devedition
-    gomuks
     gparted
     gzdoom
     hyfetch

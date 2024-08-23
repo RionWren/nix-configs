@@ -15,7 +15,7 @@
       accel_profile = "flat";
     };
     "1:1:AT_Translated_Set_2_keyboard" = {
-      xkb_layout = "gb";
+      xkb_layout = "us";
       xkb_variant = "colemak";
     };
     "2:14:ETPS/2_Elantech_TrackPoint" = {

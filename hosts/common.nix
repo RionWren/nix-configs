@@ -42,7 +42,7 @@
   environment.systemPackages = with pkgs; [
     bluez-alsa
     bluez
-    cinnamon.nemo
+    nemo
     dbus
     fzf
     grimblast
