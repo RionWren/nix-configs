@@ -1,8 +1,6 @@
 {
  pkgs, inputs, ...}: {
 
-  imports = [ inputs.hyprland.homeManagerModules.default ];
-
   home.packages = with pkgs; [
     amberol
     blender-hip

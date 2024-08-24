@@ -55,14 +55,6 @@
 
     lanzaboote.url = "github:nix-community/lanzaboote";
 
-    ags.url = "github:Aylur/ags";
-
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    
-    hyprlock.url = "github:hyprwm/hyprlock";
-  
-    hyprpicker.url = "github:hyprwm/hyprpicker";
-
     nur.url = "github:nix-community/NUR";
 
     nvf = {
