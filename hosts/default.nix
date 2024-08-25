@@ -23,10 +23,10 @@
 
 in {
 
-  "Hyperion" = mkSystem {
+  "Umbriel" = mkSystem {
      specialArgs = commonArgs;
      modules = [
-       ./Hyperion/configuration.nix
+       ./Umbriel/configuration.nix
        home-manager
        homes
        lanzaboote.nixosModules.lanzaboote
