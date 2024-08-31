@@ -33,6 +33,7 @@
     steam
     stellarium
     tetrio-desktop
+    tidal-hifi
     timidity
     transmission_4-qt
     vesktop
