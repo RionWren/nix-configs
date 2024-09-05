@@ -1,1 +1,0 @@
-/dev/nvme0n1p2: PARTUUID="7844e278-2b45-41d5-ba2b-a2c9ad5470da"
