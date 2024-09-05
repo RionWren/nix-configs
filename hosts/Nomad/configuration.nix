@@ -19,6 +19,8 @@
     libvdpau-va-gl
   ];
 
+  hardware.enableAllFirmware = true;
+
   services.xserver = {
     xkb.variant = "colemak";
   };
@@ -86,23 +88,25 @@
     qemu.runAsRoot = true;
   };
 
+  boot.bootspec.enable = true;
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/etc/secureboot";
   };
-  boot.bootspec.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
   boot.initrd.systemd.enable = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   boot.initrd.luks.devices = {
     crypted = {
-      device = "/dev/disk/by-partuuid/93b4aa33-98ae-4b04-9f2c-34a10793e303";
+      device = "/dev/disk/by-partuuid/7844e278-2b45-41d5-ba2b-a2c9ad5470da";
       allowDiscards = true;
       preLVM = true;
     };
   };
+
+  boot.loader.efi.efiSysMountPoint = "/boot/";
 
   # Set a time zone, idiot
   time.timeZone = "Europe/London";
