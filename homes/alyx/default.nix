@@ -10,6 +10,7 @@
     ./programs.nix # programs.<programName>.enable
     ./configs/git.nix
     ./configs/nvim-flake.nix
+    ./configs/sway.nix
   ];
 
   home = {
@@ -55,15 +56,6 @@
       Description = "Home Manager System Tray";
       Requires = ["graphical-session-pre.target"];
     };
-  };
-
-  wayland.windowManager.sway = {
-    package = pkgs.swayfx;
-    enable = true;
-    checkConfig = false;
-    config = import ./configs/sway.nix;
-    extraConfig = import ./configs/swayfx;
-    extraOptions = [ "--unsupported-gpu" ];
   };
 
   programs.waybar = {

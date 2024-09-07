@@ -86,6 +86,8 @@
   services.logind = {
     extraConfig = "HandlePowerKey=suspend";
   };
+  services.hardware.openrgb.enable = true;
+
 
   console.useXkbConfig = true;
 
