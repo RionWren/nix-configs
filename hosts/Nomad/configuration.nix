@@ -70,6 +70,7 @@
   ];
 
   services.fprintd.enable = true;
+  services.pcscd.enable = false;
 
   powerManagement.powertop.enable = true;
   services.thermald.enable = true;
